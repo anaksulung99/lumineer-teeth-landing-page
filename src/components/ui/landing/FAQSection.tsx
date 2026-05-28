@@ -22,39 +22,39 @@ export function FAQSection({
   });
 
   return (
-    <section className="px-5 py-14">
+    <section className="px-4 py-16 md:px-6 md:py-24">
       <div className="mx-auto max-w-4xl">
         <div className="text-center">
-          <p className="text-sm font-bold uppercase tracking-widest text-cyan-600">
+          <p className="text-base font-bold uppercase tracking-widest text-cyan-600">
             FAQ
           </p>
 
-          <h2 className="mt-3 text-3xl font-extrabold text-slate-950 md:text-5xl">
+          <h2 className="mt-4 text-4xl font-extrabold text-slate-950 sm:text-5xl">
             {section.title}
           </h2>
 
-          <p className="mt-4 text-lg text-slate-600">{section.subtitle}</p>
+          <p className="mt-5 text-xl text-slate-600">{section.subtitle}</p>
         </div>
 
-        <div className="mt-10 grid gap-4">
+        <div className="mt-12 grid gap-5">
           {items.map((item) => (
             <details
               key={item.q}
-              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+              className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <summary className="cursor-pointer list-none text-lg font-bold text-slate-950">
+              <summary className="cursor-pointer list-none text-xl font-bold text-slate-950">
                 {item.q}
               </summary>
 
-              <p className="mt-3 leading-7 text-slate-600">{item.a}</p>
+              <p className="mt-4 text-lg leading-relaxed text-slate-600">{item.a}</p>
             </details>
           ))}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <a
             href={ctaUrl}
-            className="inline-flex rounded-2xl bg-slate-950 px-8 py-4 text-lg font-bold text-white transition hover:bg-slate-800"
+            className="inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-8 py-5 text-lg font-bold text-white transition hover:bg-slate-800 sm:w-auto"
           >
             {section.button_text || "Tanya CS Sekarang"}
           </a>
