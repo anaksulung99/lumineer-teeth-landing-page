@@ -15,6 +15,12 @@ export default async function AdminLayout({
           <Link href="/admin">Dashboard</Link>
           <Link href="/admin/landing">Landing Page</Link>
           <Link href="/admin/rotator">WA Rotator</Link>
+          <Link href="/admin/media">Media</Link>
+          <Link href="/admin/theme">Theme</Link>
+          <Link href="/admin/builder">Builder</Link>
+          <form action="/api/auth/logout" method="post" className="ml-auto">
+           <button className="font-bold text-red-500">Logout</button>
+          </form>
         </div>
       </nav>
 

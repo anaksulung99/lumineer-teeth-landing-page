@@ -1,11 +1,11 @@
 import { getLandingPage } from "@/lib/landing";
-import { HeroSection } from "@/components/landing/HeroSection";
-import { StorySection } from "@/components/landing/StorySection";
-import { BenefitsSection } from "@/components/landing/BenefitsSection";
-import { PricingSection } from "@/components/landing/PricingSection";
-import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
-import { FAQSection } from "@/components/landing/FAQSection";
-import { StickyCTA } from "@/components/landing/StickyCTA";
+import { HeroSection } from "@/components/ui/landing/HeroSection";
+import { StorySection } from "@/components/ui/landing/StorySection";
+import { BenefitsSection } from "@/components/ui/landing/BenefitsSection";
+import { PricingSection } from "@/components/ui/landing/PricingSection";
+import { TestimonialsSection } from "@/components/ui/landing/TestimonialsSection";
+import { FAQSection } from "@/components/ui/landing/FAQSection";
+import { StickyCTA } from "@/components/ui/landing/StickyCTA";
 
 export const revalidate = 60;
 
@@ -17,11 +17,17 @@ export default async function HomePage() {
       <main className="min-h-screen flex items-center justify-center">
         <p>Landing page belum tersedia.</p>
       </main>
-    );
+    )
   }
 
   return (
-    <main className="bg-white text-slate-900">
+    <main className="text-slate-900"
+    style={{
+      backgroundColor: page.theme?.background_color || "#ffffff",
+      fontFamily: page.theme?.font_family || "Inter",
+      ["--primary" as any]: page.theme?.primary_color || "#0891b2",
+      ["--secondary" as any]: page.theme?.secondary_color || "#0f172a",
+    }}>
       <HeroSection page={page} />
 
       {page.landing_sections.map((section) => {
@@ -58,7 +64,7 @@ export default async function HomePage() {
         return null;
       })}
 
-      <StickyCTA page={page} />
+      <StickyCTA page={page} style={{ backgroundColor: page.theme?.primary_color || "#0891b2" }}/>
     </main>
   );
 }

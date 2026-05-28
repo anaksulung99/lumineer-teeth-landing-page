@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { RotatorAdmin } from "@/components/admin/RotatorAdmin";
+import { RotatorAdmin } from "@/components/ui/admin/RotatorAdmin";
 
 export default async function RotatorPage() {
   const { data: groups } = await supabaseAdmin

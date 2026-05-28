@@ -1,7 +1,13 @@
 import type { LandingPage } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
+import type { CSSProperties } from 'react';
 
-export function StickyCTA({ page }: { page: LandingPage }) {
+interface StickyCTAProps {
+  page: LandingPage;
+  style?: CSSProperties;
+}
+
+export function StickyCTA({ page, style }: StickyCTAProps) {
   const ctaUrl = getWhatsappCtaUrl({
     groupId: page.whatsapp_group_id,
     landingPageId: page.id,
@@ -13,6 +19,7 @@ export function StickyCTA({ page }: { page: LandingPage }) {
       <a
         href={ctaUrl}
         className="flex w-full items-center justify-center rounded-2xl bg-cyan-600 px-5 py-4 text-base font-black text-white shadow-lg"
+        style={style}
       >
         Klaim Diskon 50% + Beli 1 Gratis 1
       </a>

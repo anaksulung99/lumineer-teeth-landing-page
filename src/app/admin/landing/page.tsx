@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { LandingSectionForm } from "@/components/admin/LandingSectionForm";
+import { LandingSectionForm } from "@/components/ui/admin/LandingSectionForm";
 
 export default async function AdminLandingPage() {
   const { data: page } = await supabaseAdmin
