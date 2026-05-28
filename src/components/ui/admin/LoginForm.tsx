@@ -1,9 +1,10 @@
- "use client";
+"use client";
 
 import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import { createBrowserClient } from "@supabase/ssr";
 
-const supabase = createClient(
+const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
@@ -11,6 +12,7 @@ const supabase = createClient(
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   async function login(e: React.FormEvent) {
     e.preventDefault();
@@ -25,11 +27,14 @@ export function LoginForm() {
       return;
     }
 
-    window.location.href = "/admin";
+    router.push("/admin");
   }
 
   return (
-    <form onSubmit={login} className="w-full max-w-md rounded-3xl bg-white p-6 shadow-xl">
+    <form
+      onSubmit={login}
+      className="w-full max-w-md rounded-3xl bg-white p-6 shadow-xl"
+    >
       <h1 className="text-2xl font-black">Admin Login</h1>
 
       <input
