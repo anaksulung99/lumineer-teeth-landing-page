@@ -20,7 +20,7 @@ export function StorySection({
       <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
         <div className="order-2 md:order-1">
           <Image
-            src={section.image_url || "/images/story.webp"}
+            src="/images/image-02.png"
             alt={section.title || page.brand_name}
             width={700}
             height={700}

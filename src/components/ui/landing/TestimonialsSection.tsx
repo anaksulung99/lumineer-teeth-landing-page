@@ -48,7 +48,7 @@ export function TestimonialsSection({
           </div>
 
           <Image
-            src={section.image_url || "/images/testimonial.webp"}
+            src="/images/image-04.png"
             alt={section.title || page.brand_name}
             width={700}
             height={700}
@@ -58,7 +58,10 @@ export function TestimonialsSection({
 
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <div key={item.name} className="rounded-3xl bg-white p-8 text-slate-900">
+            <div
+              key={item.name}
+              className="rounded-3xl bg-white p-8 text-slate-900"
+            >
               <div className="flex gap-1">
                 {Array.from({ length: item.rating || 5 }).map((_, index) => (
                   <Star
@@ -68,7 +71,9 @@ export function TestimonialsSection({
                 ))}
               </div>
 
-              <p className="mt-5 text-lg leading-relaxed text-slate-600">“{item.text}”</p>
+              <p className="mt-5 text-lg leading-relaxed text-slate-600">
+                “{item.text}”
+              </p>
 
               <p className="mt-6 font-bold text-slate-950">— {item.name}</p>
             </div>

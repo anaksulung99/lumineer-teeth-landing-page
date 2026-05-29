@@ -48,7 +48,7 @@ export function BenefitsSection({
 
           <div className="rounded-[2rem] bg-white p-4 shadow-xl">
             <Image
-              src={section.image_url || "/images/benefits.webp"}
+              src="/images/image-01.png"
               alt={section.title || page.brand_name}
               width={700}
               height={700}

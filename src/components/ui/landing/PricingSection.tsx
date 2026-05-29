@@ -91,7 +91,7 @@ export function PricingSection({
 
         <div className="order-first md:order-last rounded-[2rem] bg-cyan-50 p-4">
           <Image
-            src={section.image_url || "/images/pricing.webp"}
+            src="/images/image-03.png"
             alt={section.title || page.brand_name}
             width={700}
             height={700}

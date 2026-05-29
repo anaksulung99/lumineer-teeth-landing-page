@@ -11,7 +11,7 @@ export function HeroSection({ page }: { page: LandingPage }) {
   });
 
   return (
-    <section className="relative bg-gradient-to-b from-cyan-50 to-white px-4 py-12 md:px-6 md:py-20">
+    <section className="relative bg-linear-to-b from-cyan-50 to-white px-4 py-12 md:px-6 md:py-20">
       <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2">
         <div>
           <div className="mb-5 inline-flex rounded-full bg-cyan-100 px-4 py-2 text-sm font-semibold text-cyan-700">
@@ -54,7 +54,7 @@ export function HeroSection({ page }: { page: LandingPage }) {
         <div className="relative">
           <div className="rounded-[2rem] bg-white p-4 shadow-2xl">
             <Image
-              src={page.hero_image_url || "/images/product-main.webp"}
+              src="/images/hero-img.png"
               alt={page.brand_name}
               width={800}
               height={800}
