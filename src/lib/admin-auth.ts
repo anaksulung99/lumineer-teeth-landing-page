@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { cookies } from "next/headers";
 
 export async function requireAdmin() {
+  const cookieStore = cookies();
   const supabase = await createSupabaseServerClient();
 
   const {
@@ -19,6 +21,5 @@ export async function requireAdmin() {
     .single();
 
   if (!admin) redirect("/login");
-
   return { user, admin };
 }
