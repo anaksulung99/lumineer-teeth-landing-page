@@ -6,6 +6,7 @@ import { PricingSection } from "@/components/ui/landing/PricingSection";
 import { TestimonialsSection } from "@/components/ui/landing/TestimonialsSection";
 import { FAQSection } from "@/components/ui/landing/FAQSection";
 import { StickyCTA } from "@/components/ui/landing/StickyCTA";
+import { CustomerCheckoutToast } from "@/components/ui/landing/CustomerCheckoutToast";
 
 export const revalidate = 60;
 
@@ -29,6 +30,7 @@ export default async function HomePage() {
       ["--secondary" as any]: page.theme?.secondary_color || "#0f172a",
     }}>
       <HeroSection page={page} />
+      <CustomerCheckoutToast />
 
       {page.landing_sections.map((section) => {
         if (section.section_type === "story") {

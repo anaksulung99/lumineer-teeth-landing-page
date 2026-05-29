@@ -60,7 +60,7 @@ export function PricingSection({
               </p>
 
               <p className="mt-2 text-6xl font-black text-cyan-600">
-                {meta.sale_price || "Rp199.000"}
+                {meta.sale_price || "Rp99.000"}
               </p>
 
               <p className="mt-2 text-base font-bold text-red-500">
