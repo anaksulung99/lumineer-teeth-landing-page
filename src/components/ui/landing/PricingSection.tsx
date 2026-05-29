@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Gift, ShieldCheck, Sparkles } from "lucide-react";
 import type { LandingPage, LandingSection } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 export function PricingSection({
   page,
@@ -83,6 +84,14 @@ export function PricingSection({
             <a
               href={ctaUrl}
               className="mt-8 inline-flex w-full items-center justify-center rounded-2xl bg-cyan-600 px-8 py-5 text-lg font-bold text-white transition hover:bg-cyan-700"
+              onClick={() =>
+                sendGTMEvent({
+                  event: "whatsapp_cta_click",
+                  category: "pricing",
+                  action: "whatsapp",
+                  label: section.section_key || "ambil_promo",
+                })
+              }
             >
               {section.button_text || "Ambil Promo Sekarang"}
             </a>

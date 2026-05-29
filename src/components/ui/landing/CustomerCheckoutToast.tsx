@@ -40,11 +40,23 @@ const checkoutTimes = [
   "Checkout 12 menit lalu",
 ];
 
+const avatarColors = [
+  "bg-cyan-600",
+  "bg-emerald-600",
+  "bg-rose-600",
+  "bg-violet-600",
+  "bg-amber-600",
+  "bg-sky-600",
+  "bg-teal-600",
+  "bg-fuchsia-600",
+];
+
 type CheckoutNotification = {
   name: string;
   city: string;
   time: string;
   rating: string;
+  avatarColor: string;
 };
 
 function pickRandom(items: string[]) {
@@ -57,6 +69,7 @@ function makeNotification(): CheckoutNotification {
     city: pickRandom(cities),
     time: pickRandom(checkoutTimes),
     rating: (4.7 + Math.random() * 0.3).toFixed(1),
+    avatarColor: pickRandom(avatarColors),
   };
 }
 
@@ -71,8 +84,9 @@ function getInitials(name: string) {
 }
 
 export function CustomerCheckoutToast() {
-  const [notification, setNotification] =
-    useState<CheckoutNotification | null>(null);
+  const [notification, setNotification] = useState<CheckoutNotification | null>(
+    null,
+  );
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -101,15 +115,15 @@ export function CustomerCheckoutToast() {
 
   return (
     <div
-      className={`fixed right-4 top-4 z-50 w-[calc(100vw-2rem)] max-w-[360px] transition-all duration-500 sm:right-5 sm:top-5 ${
-        visible
-          ? "translate-y-0 opacity-100"
-          : "-translate-y-3 opacity-0"
+      className={`fixed right-4 top-4 z-50 w-[calc(100vw-2rem)] max-w-90 transition-all duration-500 sm:right-5 sm:top-5 ${
+        visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
       }`}
       aria-live="polite"
     >
       <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-2xl shadow-slate-900/15 backdrop-blur">
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-cyan-600 text-sm font-black text-white">
+        <div
+          className={`flex size-11 shrink-0 items-center justify-center rounded-full text-sm font-black text-white ${notification.avatarColor}`}
+        >
           {getInitials(notification.name)}
         </div>
 

@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
   title: "Lumineer Teeth",
   description:
     "Lumineer Teeth is a dental clinic that provides dental services to patients.",
+  keywords: "dental clinic, dental services, dental treatment, dental care",
 };
 
 export default function RootLayout({
@@ -25,11 +28,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isAdminRoute = pathname.includes("/admin");
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      {!isAdminRoute && <GoogleTagManager gtmId="GTM-WLZZLKK8" />}
       <body className="min-h-full flex flex-col">
         {children}
 

@@ -1,6 +1,7 @@
 import type { LandingPage } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
-import type { CSSProperties } from 'react';
+import type { CSSProperties } from "react";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 interface StickyCTAProps {
   page: LandingPage;
@@ -20,6 +21,14 @@ export function StickyCTA({ page, style }: StickyCTAProps) {
         href={ctaUrl}
         className="flex w-full items-center justify-center rounded-2xl bg-cyan-600 px-5 py-4 text-base font-black text-white shadow-lg"
         style={style}
+        onClick={() =>
+          sendGTMEvent({
+            event: "whatsapp_cta_click",
+            category: "sticky-cta",
+            action: "whatsapp",
+            label: "sticky-cta",
+          })
+        }
       >
         Klaim Diskon 50% + Beli 1 Gratis 1
       </a>
