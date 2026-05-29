@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin-auth";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { landingSectionSchema } from "@/lib/validations";
 
 export async function PUT(
   req: NextRequest,
@@ -10,18 +11,25 @@ export async function PUT(
 
   const { id } = await params;
   const body = await req.json();
+  const parsed = landingSectionSchema.safeParse(body);
+
+  if (!parsed.success) {
+    return NextResponse.json(
+      { message: parsed.error.issues[0]?.message || "Data section tidak valid" },
+      { status: 422 }
+    );
+  }
 
   const { error } = await supabaseAdmin
-    .from("landing_pages")
+    .from("landing_sections")
     .update({
-      brand_name: body.brand_name,
-      title: body.title,
-      description: body.description,
-      hero_image_url: body.hero_image_url,
-      logo_url: body.logo_url,
-      theme: body.theme,
-      whatsapp_group_id: body.whatsapp_group_id,
-      updated_at: new Date().toISOString(),
+      title: parsed.data.title,
+      subtitle: parsed.data.subtitle,
+      body: parsed.data.body,
+      image_url: parsed.data.image_url,
+      button_text: parsed.data.button_text,
+      metadata: parsed.data.metadata,
+      is_active: parsed.data.is_active,
     })
     .eq("id", id);
 

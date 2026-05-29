@@ -1,21 +1,43 @@
- "use client";
+"use client";
 
 import { useState } from "react";
+import type { LandingSection } from "@/types/landing";
 
-export function LandingSectionForm({ section }: { section: any }) {
+export function LandingSectionForm({ section }: { section: LandingSection }) {
   const [form, setForm] = useState(section);
+  const [metadataText, setMetadataText] = useState(
+    JSON.stringify(section.metadata || {}, null, 2)
+  );
   const [loading, setLoading] = useState(false);
 
   async function save() {
+    let metadata: Record<string, unknown>;
+
+    try {
+      metadata = JSON.parse(metadataText);
+    } catch {
+      alert("Metadata JSON belum valid. Cek koma, kurung, atau tanda kutipnya.");
+      return;
+    }
+
     setLoading(true);
 
-    await fetch(`/api/admin/landing-sections/${section.id}`, {
+    const response = await fetch(`/api/admin/landing-sections/${section.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, metadata }),
     });
 
     setLoading(false);
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => null);
+      alert(data?.message || "Gagal menyimpan section");
+      return;
+    }
+
+    setForm({ ...form, metadata });
+    setMetadataText(JSON.stringify(metadata, null, 2));
     alert("Section berhasil disimpan");
   }
 
@@ -62,12 +84,8 @@ export function LandingSectionForm({ section }: { section: any }) {
 
       <textarea
         className="mt-3 min-h-40 w-full rounded-xl border px-4 py-3 font-mono text-sm"
-        value={JSON.stringify(form.metadata || {}, null, 2)}
-        onChange={(e) => {
-          try {
-            setForm({ ...form, metadata: JSON.parse(e.target.value) });
-          } catch {}
-        }}
+        value={metadataText}
+        onChange={(e) => setMetadataText(e.target.value)}
         placeholder="Metadata JSON"
       />
 
