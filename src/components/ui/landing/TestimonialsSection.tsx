@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import type { LandingPage, LandingSection } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { TrackedWhatsappLink } from "@/components/ui/landing/TrackedWhatsappLink";
 
 type Testimonial = {
   name: string;
@@ -40,20 +40,14 @@ export function TestimonialsSection({
 
             <p className="mt-5 text-xl text-slate-300">{section.subtitle}</p>
 
-            <a
+            <TrackedWhatsappLink
               href={ctaUrl}
               className="mt-8 inline-flex w-full items-center justify-center rounded-2xl bg-cyan-500 px-8 py-5 text-lg font-bold text-white transition hover:bg-cyan-600 sm:w-auto"
-              onClick={() =>
-                sendGTMEvent({
-                  event: "whatsapp_cta_click",
-                  category: "testimonials",
-                  action: "whatsapp",
-                  label: section.section_key || "chat_cs",
-                })
-              }
+              category="testimonials"
+              label={section.section_key || "chat_cs"}
             >
               {section.button_text || "Chat CS Sekarang"}
-            </a>
+            </TrackedWhatsappLink>
           </div>
 
           <Image

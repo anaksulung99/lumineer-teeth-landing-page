@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { ConditionalGoogleTagManager } from "@/components/ui/analytics/ConditionalGoogleTagManager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,14 +27,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isAdminRoute = pathname.includes("/admin");
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      {!isAdminRoute && <GoogleTagManager gtmId="GTM-WLZZLKK8" />}
+      <ConditionalGoogleTagManager gtmId="GTM-WLZZLKK8" />
       <body className="min-h-full flex flex-col">
         {children}
 

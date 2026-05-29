@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { LandingPage, LandingSection } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { TrackedWhatsappLink } from "@/components/ui/landing/TrackedWhatsappLink";
 
 export function StorySection({
   page,
@@ -46,20 +46,14 @@ export function StorySection({
             {section.body}
           </p>
 
-          <a
+          <TrackedWhatsappLink
             href={ctaUrl}
             className="mt-8 inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-8 py-5 text-lg font-bold text-white transition hover:bg-slate-800 sm:w-auto"
-            onClick={() =>
-              sendGTMEvent({
-                event: "whatsapp_cta_click",
-                category: "story",
-                action: "whatsapp",
-                label: section.section_key || "chat_whatsapp",
-              })
-            }
+            category="story"
+            label={section.section_key || "chat_whatsapp"}
           >
             {section.button_text || "Chat WhatsApp Sekarang"}
-          </a>
+          </TrackedWhatsappLink>
         </div>
       </div>
     </section>

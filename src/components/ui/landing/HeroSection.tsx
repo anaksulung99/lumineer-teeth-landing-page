@@ -2,7 +2,7 @@ import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import type { LandingPage } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { TrackedWhatsappLink } from "@/components/ui/landing/TrackedWhatsappLink";
 
 export function HeroSection({ page }: { page: LandingPage }) {
   const ctaUrl = getWhatsappCtaUrl({
@@ -40,20 +40,14 @@ export function HeroSection({ page }: { page: LandingPage }) {
             ))}
           </div>
 
-          <a
+          <TrackedWhatsappLink
             href={ctaUrl}
             className="mt-10 inline-flex w-full items-center justify-center rounded-2xl bg-cyan-600 px-8 py-5 text-lg font-bold text-white shadow-lg shadow-cyan-200 transition hover:bg-cyan-700 sm:w-auto"
-            onClick={() =>
-              sendGTMEvent({
-                event: "whatsapp_cta_click",
-                category: "hero",
-                action: "whatsapp",
-                label: "klaim_promo",
-              })
-            }
+            category="hero"
+            label="klaim_promo"
           >
             Klaim Promo via WhatsApp
-          </a>
+          </TrackedWhatsappLink>
 
           <p className="mt-4 text-sm text-slate-500">
             Tanpa register, tanpa checkout form. Langsung chat CS.

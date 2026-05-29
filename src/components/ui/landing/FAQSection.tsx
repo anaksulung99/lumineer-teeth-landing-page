@@ -1,6 +1,6 @@
 import type { LandingPage, LandingSection } from "@/types/landing";
 import { getWhatsappCtaUrl } from "@/lib/cta";
-import { sendGTMEvent } from "@next/third-parties/google";
+import { TrackedWhatsappLink } from "@/components/ui/landing/TrackedWhatsappLink";
 
 type FAQ = {
   q: string;
@@ -55,20 +55,14 @@ export function FAQSection({
         </div>
 
         <div className="mt-12 text-center">
-          <a
+          <TrackedWhatsappLink
             href={ctaUrl}
             className="inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-8 py-5 text-lg font-bold text-white transition hover:bg-slate-800 sm:w-auto"
-            onClick={() =>
-              sendGTMEvent({
-                event: "whatsapp_cta_click",
-                category: "faq",
-                action: "whatsapp",
-                label: section.section_key || "tanya_cs",
-              })
-            }
+            category="faq"
+            label={section.section_key || "tanya_cs"}
           >
             {section.button_text || "Tanya CS Sekarang"}
-          </a>
+          </TrackedWhatsappLink>
         </div>
       </div>
     </section>
