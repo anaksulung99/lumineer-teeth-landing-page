@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     if (!groupId) {
       return NextResponse.json(
         { message: "group_id wajib diisi" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
     });
 
     const message = encodeURIComponent(
-      "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?"
+      "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ",
     );
 
     const phone = String(agent.phone).replace(/\D/g, "");
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
         message:
           error instanceof Error ? error.message : "Terjadi kesalahan server",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
