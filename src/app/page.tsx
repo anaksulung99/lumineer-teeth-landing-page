@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getLandingPage } from "@/lib/landing";
+import { getWhatsappCtaUrl } from "@/lib/cta";
 import { HeroSection } from "@/components/ui/landing/HeroSection";
 import { StorySection } from "@/components/ui/landing/StorySection";
 import { BenefitsSection } from "@/components/ui/landing/BenefitsSection";
@@ -17,7 +18,13 @@ export default async function HomePage() {
     process.env.NEXT_FORCE_REDIRECT_TO_ROTATOR === "true";
 
   if (redirectToRotator) {
-    redirect("/whatsapp/loading");
+    const ctaUrl = getWhatsappCtaUrl({
+      groupId: page?.whatsapp_group_id || "",
+      landingPageId: page?.id || "",
+      source: "home",
+    });
+
+    redirect(ctaUrl);
   }
 
   if (!page) {
