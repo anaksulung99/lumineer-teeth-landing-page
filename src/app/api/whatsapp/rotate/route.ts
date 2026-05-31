@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const userAgent = req.headers.get("user-agent");
+    const userAgent = req.headers.get("user-agent") || "";
     const ip =
       req.headers.get("x-forwarded-for") ||
       req.headers.get("x-real-ip") ||
@@ -34,10 +34,18 @@ export async function GET(req: NextRequest) {
       "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ",
     );
 
-    const phone = String(agent.phone).replace(/\D/g, "");
-    const waUrl = `https://wa.me/${phone}?text=${message}`;
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        userAgent,
+      );
 
-    return NextResponse.redirect(waUrl, 302);
+    const phone = String(agent.phone).replace(/\D/g, "");
+
+    const targetUrl = isMobile
+      ? `whatsapp://send?phone=${phone}&text=${message}`
+      : `https://wa.me/${phone}?text=${message}`;
+
+    return NextResponse.redirect(targetUrl, 302);
   } catch (error) {
     return NextResponse.json(
       {

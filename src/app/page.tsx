@@ -24,7 +24,7 @@ export default async function HomePage() {
       source: "home",
     });
 
-    redirect(ctaUrl);
+    return redirect(ctaUrl);
   }
 
   if (!page) {
