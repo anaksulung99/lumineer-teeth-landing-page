@@ -28,7 +28,7 @@ export function WhatsappRedirectLoading({
           "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ";
         const message = encodeURIComponent(rawMessage);
 
-        const whatsappUrl = `https://wa.me{data.phone}?text=${message}`;
+        const whatsappUrl = `https://wa.me/${data.phone}?text=${message}`;
         setFallbackUrl(whatsappUrl);
 
         window.location.replace(whatsappUrl);
