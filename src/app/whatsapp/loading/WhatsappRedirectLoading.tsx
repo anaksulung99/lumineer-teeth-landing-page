@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MessageCircle, AlertTriangle } from "lucide-react";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 export function WhatsappRedirectLoading({
   rotateUrl,
@@ -28,10 +29,35 @@ export function WhatsappRedirectLoading({
           "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ";
         const message = encodeURIComponent(rawMessage);
 
-        const whatsappUrl = `https://wa.me/${data.phone}?text=${message}`;
+        const ua =
+          navigator.userAgent || navigator.vendor || (window as any).opera;
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            ua,
+          );
+
+        const whatsappUrl = isMobile
+          ? `whatsapp://send?phone=${data.phone}&text=${message}`
+          : `https://wa.me/${data.phone}?text=${message}`;
+
         setFallbackUrl(whatsappUrl);
 
-        window.location.replace(whatsappUrl);
+        if (typeof window !== "undefined") {
+          sendGTMEvent({
+            event: "whatsapp_cta_click",
+            category: "whatsapp",
+            action: "whatsapp",
+            label: data.phone,
+          });
+        }
+
+        setTimeout(() => {
+          if (isMobile) {
+            window.location.href = whatsappUrl;
+          } else {
+            window.location.replace(whatsappUrl);
+          }
+        }, 500);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Terjadi kesalahan");
       }
