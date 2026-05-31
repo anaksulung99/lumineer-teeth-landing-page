@@ -18,5 +18,5 @@ export function getWhatsappCtaUrl({
       params.set("landing_page_id", landingPageId);
     }
   
-    return `/api/whatsapp/rotate?${params.toString()}`;
+    return `/whatsapp/loading?${params.toString()}`;
   }
