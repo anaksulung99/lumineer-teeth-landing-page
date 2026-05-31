@@ -34,16 +34,14 @@ export async function GET(req: NextRequest) {
       "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ",
     );
 
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        userAgent,
-      );
+    // const isMobile =
+    //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    //     userAgent,
+    //   );
 
     const phone = String(agent.phone).replace(/\D/g, "");
 
-    const targetUrl = isMobile
-      ? `whatsapp://send?phone=${phone}&text=${message}`
-      : `https://wa.me/${phone}?text=${message}`;
+    const targetUrl = `https://api.whatsapp.com/send/?phone=${phone}&text=${message}`;
 
     return NextResponse.redirect(targetUrl, 302);
   } catch (error) {
