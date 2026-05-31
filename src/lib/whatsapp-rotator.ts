@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 type Strategy = "round_robin" | "equal" | "percentage";
@@ -61,23 +62,25 @@ export async function getNextWhatsappAgent({
       weightedAgents[Math.floor(Math.random() * weightedAgents.length)];
   }
 
-  await supabaseAdmin
-    .from("wa_rotator_groups")
-    .update({ last_agent_id: selectedAgent.id })
-    .eq("id", groupId);
-
-  await supabaseAdmin
-    .from("wa_agents")
-    .update({ total_leads: selectedAgent.total_leads + 1 })
-    .eq("id", selectedAgent.id);
-
-  await supabaseAdmin.from("wa_leads").insert({
-    group_id: groupId,
-    agent_id: selectedAgent.id,
-    landing_page_id: landingPageId || null,
-    source: source || null,
-    user_agent: userAgent || null,
-    customer_ip: ip || null,
+  after(async () => {
+    await Promise.allSettled([
+      supabaseAdmin
+        .from("wa_rotator_groups")
+        .update({ last_agent_id: selectedAgent.id })
+        .eq("id", groupId),
+      supabaseAdmin
+        .from("wa_agents")
+        .update({ total_leads: Number(selectedAgent.total_leads || 0) + 1 })
+        .eq("id", selectedAgent.id),
+      supabaseAdmin.from("wa_leads").insert({
+        group_id: groupId,
+        agent_id: selectedAgent.id,
+        landing_page_id: landingPageId || null,
+        source: source || null,
+        user_agent: userAgent || null,
+        customer_ip: ip || null,
+      }),
+    ]);
   });
 
   return selectedAgent;

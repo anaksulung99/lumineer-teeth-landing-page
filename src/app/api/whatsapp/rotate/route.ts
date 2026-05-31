@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     const phone = String(agent.phone).replace(/\D/g, "");
     const waUrl = `https://wa.me/${phone}?text=${message}`;
 
-    return NextResponse.redirect(waUrl);
+    return NextResponse.redirect(waUrl, 302);
   } catch (error) {
     return NextResponse.json(
       {
