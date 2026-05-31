@@ -30,9 +30,9 @@ export async function GET(req: NextRequest) {
       ip,
     });
 
-    const message = encodeURIComponent(
-      "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ",
-    );
+    // const message = encodeURIComponent(
+    //   "Halo kak, saya tertarik promo Lumineers Teeth Beli 1 Gratis 1 + Diskon 50%. Apakah masih tersedia?\nnama: \nalamat: ",
+    // );
 
     // const isMobile =
     //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -41,9 +41,16 @@ export async function GET(req: NextRequest) {
 
     const phone = String(agent.phone).replace(/\D/g, "");
 
-    const targetUrl = `https://api.whatsapp.com/send/?phone=${phone}&text=${message}`;
+    // const targetUrl = `https://api.whatsapp.com/send/?phone=${phone}&text=${message}`;
 
-    return NextResponse.redirect(targetUrl, 302);
+    // return NextResponse.redirect(targetUrl, 302);
+
+    return NextResponse.json(
+      { phone },
+      {
+        headers: { "Cache-Control": "no-store, max-age=0" },
+      },
+    );
   } catch (error) {
     return NextResponse.json(
       {
